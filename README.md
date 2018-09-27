@@ -1,4 +1,5 @@
 # `@wrhs/release-line`
+[![Build Status](https://travis-ci.com/warehouseai/release-line.svg?branch=master)](https://travis-ci.com/warehouseai/release-line)
 
 A thin wrapper around the `release-line` models in [`warehouse-models`][warehouse-models]
 to enable properly compiling the `release-line` data structure.
