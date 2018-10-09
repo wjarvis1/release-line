@@ -45,12 +45,13 @@ class ReleaseLine {
    * @param {Object[]} [opts.dependents] Dependent objects to create dependents
    * @returns {Promise} to be resolved
    */
-  async create({ version, pkg, dependents = [] }) {
+  async create({ version, previousVersion, pkg, dependents = [] }) {
     const { ReleaseLine, ReleaseLineHead } = this.models;
+    let previous;
 
-    const previous = await this.head(pkg);
+    if (!previousVersion) previous = await this.head(pkg);
 
-    const previousVersion = previous && previous.version;
+    previousVersion = previousVersion || (previous && previous.version);
     return Promise.all([
       ReleaseLine.create({ version, pkg, previousVersion }),
       ReleaseLineHead.create({ version, pkg, previousVersion })

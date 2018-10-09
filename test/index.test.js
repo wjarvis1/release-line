@@ -2,10 +2,12 @@ const assume = require('assume');
 const Datastar = require('datastar');
 const wrhsModels = require('warehouse-models');
 const config = require('./config');
+const sinon = require('sinon');
 
+assume.use(require('assume-sinon'));
 const ReleaseLine = require('..');
 
-describe('release-line-manager', function () {
+describe('@wrhs/release-line', function () {
   this.timeout(5E4);
   let models;
   let release;
@@ -72,6 +74,25 @@ describe('release-line-manager', function () {
     assume(Object.keys(releaseline.dependents)).has.length(2);
     assume(releaseline.dependents['release-test-dep1']).equals('4.0.0');
     assume(releaseline.dependents['release-test-dep2']).equals('4.0.0');
+    await release.delete(spec);
+  });
+
+  it('should create a release line without fetching head when given previousVersion', async function () {
+    const spec = {
+      version: '4.0.1',
+      previousVersion: '4.0.0',
+      pkg: 'release-huh'
+    };
+
+    const spy = sinon.spy(release, 'head');
+    await release.create(spec);
+    assume(spy).is.not.called();
+    sinon.restore();
+
+    const releaseline = await release.get(spec);
+    assume(releaseline.pkg).equals(spec.pkg);
+    assume(releaseline.version).equals(spec.version);
+    assume(releaseline.previousVersion).equals(spec.previousVersion);
     await release.delete(spec);
   });
 
