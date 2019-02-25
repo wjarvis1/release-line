@@ -29,13 +29,13 @@
   "devDependencies": {
     "assume": "^2.1.0",
     "assume-sinon": "^1.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-godaddy": "^2.1.0",
-    "eslint-plugin-json": "^1.2.1",
-    "eslint-plugin-mocha": "^4.12.1",
+    "eslint": "^5.14.0",
+    "eslint-config-godaddy": "^3.0.0",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-mocha": "^5.3.0",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
-    "sinon": "^6.3.5",
-    "warehouse-models": "^5.8.0"
+    "nyc": "^13.3.0",
+    "sinon": "^7.2.3",
+    "warehouse-models": "^5.9.1"
   }
 }
