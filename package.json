@@ -1,6 +1,6 @@
 {
   "name": "@wrhs/release-line",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Manage release lines for integrating robust dependent builds in warehouse/feedsme",
   "main": "index.js",
   "scripts": {
