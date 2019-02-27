@@ -20,9 +20,9 @@
   "author": "GoDaddy Operating Company LLC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/warehouseai/release-line-manager/issues"
+    "url": "https://github.com/warehouseai/release-line/issues"
   },
-  "homepage": "https://github.com/warehouseai/release-line-manager#readme",
+  "homepage": "https://github.com/warehouseai/release-line#readme",
   "dependencies": {
     "datastar": "^1.6.0"
   },
