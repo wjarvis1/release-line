@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=json --reporter=text --reporter=lcov mocha -R spec test/",
-    "lint": "eslint-godaddy index.js test/*.test.js",
+    "lint": "eslint-godaddy *.js \"test/**/*.test.js\"",
     "posttest": "npm run lint",
     "localstack": "docker run -it -p 4569:4569 --rm localstack/localstack:0.10.3"
   },
@@ -25,14 +25,14 @@
   },
   "homepage": "https://github.com/warehouseai/release-line#readme",
   "dependencies": {
-    "aws-liveness": "^1.1.0",
-    "aws-sdk": "^2.563.0",
-    "dynamodb-x": "^1.2.3",
     "dynastar": "^1.1.0"
   },
   "devDependencies": {
     "assume": "^2.2.0",
     "assume-sinon": "^1.0.1",
+    "aws-liveness": "^1.1.0",
+    "aws-sdk": "^2.564.0",
+    "dynamodb-x": "^1.2.3",
     "eslint": "^5.16.0",
     "eslint-config-godaddy": "^3.0.0",
     "eslint-plugin-json": "^1.4.0",
