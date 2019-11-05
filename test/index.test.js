@@ -21,15 +21,13 @@ describe('@wrhs/release-line', function () {
   let models;
   let release;
 
-  before((done) => {
-    liveness.waitForServices({
+  before(async () => {
+    await liveness.waitForServices({
       clients: [dynamoDriver],
       waitSeconds: 60
-    }).then(() => {
-      models = wrhsModels(dynamo);
-      release = new ReleaseLine({ models });
-      done();
-    }).catch(done);
+    });
+    models = wrhsModels(dynamo);
+    release = new ReleaseLine({ models });
   });
 
   beforeEach(async () => {
