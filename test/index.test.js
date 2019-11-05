@@ -1,8 +1,17 @@
 const assume = require('assume');
-const Datastar = require('datastar');
+var { DynamoDB } = require('aws-sdk');
+var dynamo = require('dynamodb-x');
+var AwsLiveness = require('aws-liveness');
 const wrhsModels = require('warehouse-models');
-const config = require('./config');
 const sinon = require('sinon');
+
+process.env.AWS_ACCESS_KEY_ID = 'foobar';
+process.env.AWS_SECRET_ACCESS_KEY = 'foobar';
+const region = 'us-east-1';
+const endpoint = 'http://localhost:4569';
+const dynamoDriver = new DynamoDB({ endpoint, region });
+dynamo.dynamoDriver(dynamoDriver);
+const liveness = new AwsLiveness();
 
 assume.use(require('assume-sinon'));
 const ReleaseLine = require('..');
@@ -11,13 +20,16 @@ describe('@wrhs/release-line', function () {
   this.timeout(5E4);
   let models;
   let release;
-  let datastar;
 
   before((done) => {
-    datastar = new Datastar(config);
-    models = wrhsModels(datastar);
-    release = new ReleaseLine({ models });
-    datastar.connect(done);
+    liveness.waitForServices({
+      clients: [dynamoDriver],
+      waitSeconds: 60
+    }).then(() => {
+      models = wrhsModels(dynamo);
+      release = new ReleaseLine({ models });
+      done();
+    }).catch(done);
   });
 
   beforeEach(async () => {
@@ -32,14 +44,11 @@ describe('@wrhs/release-line', function () {
     }));
   });
 
-  after(done => {
-    datastar.close(done);
-  });
-
   it('should throw an error if constructed without models', function () {
     /* eslint-disable-next-line */
     assume(function () { new ReleaseLine();}).to.throw();
   });
+
   it('should create and get release-line model with no dependents', async function () {
     const spec = { version: '4.0.0', pkg: 'release-test' };
     await release.create(spec);

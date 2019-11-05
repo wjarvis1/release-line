@@ -57,10 +57,14 @@ class Dependent {
     //
     if (dependent) {
       return ReleaseLineDep.remove({ pkg, version, dependent });
+    } else {
+      let dependencyRemoves = [];
+      const dependents = await ReleaseLineDep.findAll({ pkg, version })
+      dependents.forEach( dependent => {
+        dependencyRemoves.push(ReleaseLineDep.remove(dependent));
+      });
+      return Promise.all(dependencyRemoves);
     }
-
-    return ReleaseLineDep.remove({ pkg, version });
-
   }
   /**
    * For the given release line (pkg, version), list the dependents
