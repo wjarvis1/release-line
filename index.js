@@ -1,4 +1,4 @@
-const { AwaitWrap } = require('datastar');
+const { AwaitWrap } = require('dynastar');
 const Dependent = require('./dependent');
 
 /**

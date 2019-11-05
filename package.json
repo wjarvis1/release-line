@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc --reporter=json --reporter=text --reporter=lcov mocha -R spec test/",
     "lint": "eslint-godaddy index.js test/*.test.js",
-    "pretest": "npm run lint"
+    "posttest": "npm run lint",
+    "localstack": "docker run -it -p 4569:4569 --rm localstack/localstack:0.10.3"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,10 @@
   },
   "homepage": "https://github.com/warehouseai/release-line#readme",
   "dependencies": {
-    "datastar": "^1.7.0"
+    "aws-liveness": "^1.1.0",
+    "aws-sdk": "^2.563.0",
+    "dynamodb-x": "^1.2.3",
+    "dynastar": "^1.1.0"
   },
   "devDependencies": {
     "assume": "^2.2.0",
@@ -36,6 +40,6 @@
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",
     "sinon": "^7.3.2",
-    "warehouse-models": "^5.9.1"
+    "warehouse-models": "^6.0.0"
   }
 }
