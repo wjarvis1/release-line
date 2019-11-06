@@ -7,7 +7,7 @@
     "test": "nyc --reporter=json --reporter=text --reporter=lcov mocha -R spec test/",
     "lint": "eslint-godaddy *.js \"test/**/*.test.js\"",
     "posttest": "npm run lint",
-    "localstack": "docker run -it -p 4569:4569 --rm localstack/localstack:0.10.3"
+    "localstack": "docker run -it -p 4569:4569 --rm localstack/localstack"
   },
   "repository": {
     "type": "git",
